@@ -1,3 +1,7 @@
+<?php
+$this->title = 'Гостевая книга :: запись';
+?>
+
 <h2>Сообщение</h2>
 <table class="table">
     <tr>

@@ -3,6 +3,8 @@ use yii\web\Request;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\captcha\Captcha;
+
+$this->title = 'Гостевая книга :: добавление записи';
 ?>
 
 <div class="col-lg-6">

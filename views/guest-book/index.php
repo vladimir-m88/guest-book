@@ -1,5 +1,6 @@
 <?php 
     use app\models\Messages;
+    $this->title = 'Гостевая книга';
 ?>
 <?= \yii\grid\GridView::widget([
     'dataProvider' => $dataProvider,
