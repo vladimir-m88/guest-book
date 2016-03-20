@@ -7,7 +7,7 @@ use yii\web\Controller;
 use app\models\Messages;
 
 class GuestBookController extends Controller {
-    
+
     public function actionIndex() {
         echo 'GuestBookController actionIndex';
     }

@@ -18,6 +18,11 @@ use yii\helpers\Html;
  */
 class Messages extends \yii\db\ActiveRecord
 {
+    /*
+     * атрибут для CAPTCHA
+     */
+    public $captcha;
+    
     /**
      * @inheritdoc
      */
@@ -32,13 +37,17 @@ class Messages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_name', 'email', 'text', 'IP', 'browser'], 'required'],
+            [['user_name', 'email', 'text', 'captcha', 'IP', 'browser'], 'required'],
+            ['user_name', 'match', 'pattern' => '/^[a-z0-9]{3,16}$/i',
+                'message' => 'Имя пользователя должно содержать только цифры и буквы латинского алфавита.' .
+                ' Его длина должна составлять 3 - 16 символов.'],
             [['email'], 'email'],
             [['homepage'], 'url'],
             [['text'], 'string'],
-            [['user_name', 'email', 'homepage', 'browser'], 'string', 'max' => 256],
-            ['IP', 'ip'],
-            [['user_name', 'text'], 'trim']
+            [['captcha'], 'captcha'],
+            [['homepage', 'browser', 'IP'], 'string', 'max' => 256],
+            //['IP', 'ip'],
+            [['text'], 'trim']
         ];
     }
 
@@ -53,6 +62,7 @@ class Messages extends \yii\db\ActiveRecord
             'email' => 'E-mail',
             'homepage' => 'Сайт пользователя',
             'text' => 'Текст сообщения',
+            'captcha' => 'Введите символы',
             'IP' => 'IP',
             'browser' => 'Browser',
         ];
@@ -62,8 +72,17 @@ class Messages extends \yii\db\ActiveRecord
      * Метод, который вызывается пред валидацией модели.
      */
     public function beforeValidate() {
-        $this->IP = "192.168.1.1";
-        $this->browser = "Firefox";
+        //$this->IP = "192.168.1.1";
+        $this->IP = Yii::$app->request->userIP;
+        if(!isset($this->IP))
+        {
+            $this->IP = "не определено";
+        }
+        $this->browser = Yii::$app->request->userAgent;
+        if(!isset($this->browser))
+        {
+            $this->browser = "не определено";
+        }
         return parent::beforeValidate();
     }
     
@@ -72,6 +91,7 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
+            //кодируем html-сущности
             $this->user_name = Html::encode($this->user_name);
             $this->text = Html::encode($this->text);
             return true;

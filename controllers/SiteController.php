@@ -43,13 +43,15 @@ class SiteController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                //'foreColor' => 0xFE980F, // цвет символов
+                //'offset' => 10, // расстояние между символами (можно отрицательное)
             ],
         ];
     }
 
     public function actionIndex()
     {
-        return $this->redirect(['guest-book']);
+        //return $this->redirect(['guest-book']);
         return $this->render('index');
     }
 

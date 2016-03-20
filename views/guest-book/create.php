@@ -1,7 +1,8 @@
 <?php
-
+use yii\web\Request;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\captcha\Captcha;
 ?>
 
 <div class="col-lg-6">
@@ -12,6 +13,7 @@ use yii\helpers\Html;
     <?php echo $form->field($model, 'email')->textInput(); ?>
     <?php echo $form->field($model, 'homepage')->textInput(); ?>
     <?php echo $form->field($model, 'text')->textarea(); ?>
+    <?php echo $form->field($model, 'captcha')->widget(Captcha::classname(), []) ?>
     <?php echo Html::submitButton('Отправить', ['class' => 'btn btn-primary']); ?>
     <?php ActiveForm::end() ?>
 </div>
