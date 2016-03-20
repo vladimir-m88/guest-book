@@ -5,26 +5,41 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Messages;
+use yii\data\ActiveDataProvider;
 
 class GuestBookController extends Controller {
 
+    /*
+     * Метод по умолчанию. Выводит таблицу сообщений.
+     */
     public function actionIndex() {
-        return $this->render('index', ['model' => null]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Messages::find(),
+            'pagination' => [
+                'pagesize' => 15,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'public_date' => SORT_DESC,
+                ],
+                'attributes' => [
+                    'user_name' => [
+                    ],
+                    'email' => [
+                    ],
+                    'public_date' => [
+                    ],
+                ],
+            ],
+        ]);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
     
     /*
      * Метод, который добавляет новую запись в таблицу сообщений.
      */
     public function actionCreate() {
-        // 1. Create a new Room instance;
         $model = new Messages();
-//        if (isset($_POST['Messages'])) 
-//        {
-//            echo '<pre>';
-//            print_r($_POST['Messages']);
-//            echo '</pre>';
-//        }
-        // 2. Check if $_POST['Room'] contains data and save model;
         if ($model->load(Yii::$app->request->post()) && ($model->save())) {
             return $this->redirect(['detail', 'id' => $model->id]);
         }

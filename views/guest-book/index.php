@@ -1,8 +1,25 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<?php 
+    use app\models\Messages;
+?>
+<?= \yii\grid\GridView::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        'id',
+        'user_name',
+        'email',
+        'homepage',
+        'text',
+        'public_date',
+        'IP',
+        'browser',
+        [
+            'attribute' => 'id',
+            'header' => 'Действия',
+            'value' => function (Messages $model) {
+                return $this->render('_actions_cell', ['model' => $model]);
+            },
+            'contentOptions' => ['class' => 'detail-cell'],
+            'format' => 'raw',
+        ],
+    ],
+]); ?>

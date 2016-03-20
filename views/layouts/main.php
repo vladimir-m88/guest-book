@@ -20,6 +20,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link href="<?= Yii::$app->homeUrl ?>/css/custom_style.css" rel="stylesheet">
 </head>
 <body>
 <?php $this->beginBody() ?>
