@@ -5,6 +5,7 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'defaultRoute' => 'guest-book/index',
     'language' => 'ru-RU',
     'bootstrap' => ['log'],
     'components' => [

@@ -51,7 +51,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        //return $this->redirect(['guest-book']);
         return $this->render('index');
     }
 

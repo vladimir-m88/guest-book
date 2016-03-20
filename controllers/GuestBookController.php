@@ -9,7 +9,7 @@ use app\models\Messages;
 class GuestBookController extends Controller {
 
     public function actionIndex() {
-        echo 'GuestBookController actionIndex';
+        return $this->render('index', ['model' => null]);
     }
     
     /*
