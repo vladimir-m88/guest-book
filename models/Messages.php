@@ -20,12 +20,12 @@ use yii\helpers\Html;
 class Messages extends \yii\db\ActiveRecord
 {
     /*
-     * атрибут для CAPTCHA
+     * Атрибут для CAPTCHA.
      */
     public $captcha;
     
     /**
-     * @inheritdoc
+     * Таблица БД.
      */
     public static function tableName()
     {
@@ -33,27 +33,27 @@ class Messages extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Правила валидации.
      */
     public function rules()
     {
         return [
-            [['user_name', 'email', 'text', 'captcha', 'IP', 'browser'], 'required'],
+            [['user_name', 'email', 'text', 'public_date', 'captcha', 'IP', 'browser'], 'required'],
             ['user_name', 'match', 'pattern' => '/^[a-z0-9]{3,16}$/i',
                 'message' => 'Имя пользователя должно содержать только цифры и буквы латинского алфавита.' .
                 ' Его длина должна составлять 3 - 16 символов.'],
             [['email'], 'email'],
             [['homepage'], 'url'],
             [['text'], 'string'],
+            [['public_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             [['captcha'], 'captcha'],
             [['homepage', 'browser', 'IP'], 'string', 'max' => 256],
-            //['IP', 'ip'],
             [['text'], 'trim']
         ];
     }
 
     /**
-     * @inheritdoc
+     * Метки атрибутов.
      */
     public function attributeLabels()
     {

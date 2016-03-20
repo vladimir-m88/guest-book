@@ -16,7 +16,7 @@ class GuestBookController extends Controller {
         $dataProvider = new ActiveDataProvider([
             'query' => Messages::find(),
             'pagination' => [
-                'pagesize' => 15,
+                'pagesize' => 25,
             ],
             'sort' => [
                 'defaultOrder' => [

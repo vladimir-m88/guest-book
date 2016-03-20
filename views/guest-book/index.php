@@ -3,12 +3,19 @@
 ?>
 <?= \yii\grid\GridView::widget([
     'dataProvider' => $dataProvider,
+    'layout' => "{items}{pager}",
     'columns' => [
         'id',
         'user_name',
         'email',
         'homepage',
-        'text',
+        [
+            'attribute' => 'text',
+            'value' => function (Messages $model) {
+                return $this->render('_text_cell', ['model' => $model]);
+            },
+            'format' => 'raw',
+        ],
         'public_date',
         'IP',
         'browser',
