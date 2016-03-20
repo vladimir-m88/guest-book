@@ -84,7 +84,7 @@ class Messages extends \yii\db\ActiveRecord
             $this->IP = "не определено";
         }
         // определяем браузер
-        $this->browser = Yii::$app->request->userAgent;
+        $this->browser = $this->getUserAgent(Yii::$app->request->userAgent);
         if(!isset($this->browser))
         {
             $this->browser = "не определено";
@@ -103,6 +103,36 @@ class Messages extends \yii\db\ActiveRecord
         } else {
             return false;
         }
+    }
+    
+    /*
+     * Метод для определения названия браузера пользователя
+     * по строке HTTP_USER_AGENT
+     */
+    protected function getUserAgent($agentStr) {
+        $browser = $agentStr;
+        if (strpos($agentStr, 'Firefox') !== false) {
+            $browser = 'Firefox';
+        } elseif (strpos($agentStr, 'Chrome') !== false) {
+            $browser = 'Chrome';
+        } elseif (strpos($agentStr, 'Safari') !== false) {
+            $browser = 'Safari';
+        } elseif (strpos($agentStr, 'Opera') !== false) {
+            $browser = 'Opera';
+        } elseif (strpos($agentStr, 'MSIE 6.0') !== false) {
+            $browser = 'Internet Explorer 6';
+        } elseif (strpos($agentStr, 'MSIE 7.0') !== false) {
+            $browser = 'Internet Explorer 7';
+        } elseif (strpos($agentStr, 'MSIE 8.0') !== false) {
+            $browser = 'Internet Explorer 8';
+        } elseif (strpos($agentStr, 'MSIE 9.0') !== false) {
+            $browser = 'Internet Explorer 9';
+        } elseif (strpos($agentStr, 'MSIE 10.0') !== false) {
+            $browser = 'Internet Explorer 10';
+        } elseif (strpos($agentStr, 'Trident/7') !== false) {
+            $browser = 'Internet Explorer 11';
+        }
+        return $browser;
     }
 
 }
